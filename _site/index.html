@@ -107,14 +107,25 @@ To the best of our knowledge, our method introduces the first training-free feed
   <hr/>
   <h4><u>Generative process of DiffStyle</u></h4>
   <div style="text-align : center;">
-    <img src="resrc/sampling_graphical_project.png" style="width: 65%"/>
+    <img src="resrc/sampling_graphical_project.png" style="width: 75%"/>
   </div>
-  <p>(a) <textbf>Overview of DiffStyle.</textbf> During the content injection, the bottle neck feature map is recursively injected during the sampling process started from the inverted $x_T$ of style images. The target content is reflected into the result image while preserving the original style elements. (b) <textbf>Illustration of spatial content injection methods</textbf> Mask m determines the area of feature map. Slerp of masked ht enables content injection into designated space.</p>
+  <p>(a) <b>Overview of DiffStyle.</b> During the content injection, the bottle neck feature map is recursively injected during the sampling process started from the inverted $ x_T $ of style images. The target content is reflected into the result image while preserving the original style elements. (b) <textbf>Illustration of spatial content injection methods</textbf> Mask m determines the area of feature map. Slerp of masked ht enables content injection into designated space.</p>
+<br>
+
+  <div style="text-align : center;">
+    <img src="resrc/style_calibration.png" style="width: 40%"/>
+  </div>
+  <p><b>Style calibration.</b> The result of DDIM reverseprocess with given approximated $x′_t$ may be similar to
+    the result of a corresponding injected result $ \tilde{x}_{t−1}$. When
+    the closer ω gets to 1, the more style elements are added
+    through $ dx_t $. Note that the effect of style calibration is different from modifying $ γ $ because it remains predicted x0 by
+    solving the DDIM equation</p>
+
 </div>
 
 <div class="container">
   <h3> Teaser Video</h3>
-  <h4>We increase content injectino ratio from 0 to 4 for the vidoes. Videos are available after loading completion. </h4>
+  <h4>We increase content injection ratio from 0 to 4 for the vidoes. Videos are available after loading completion. </h4>
   <hr/>
 
   <div class="container">

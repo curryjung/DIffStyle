@@ -1,4 +1,4 @@
 # project-webpage
 
-https://curryjung.github.io/DiffStyle_project_page/
+https://curryjung.github.io/DiffStyle/
 
