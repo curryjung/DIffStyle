@@ -1,0 +1,415 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>DiffStyle</title>
+  <meta name="description" content="Project page for DiffStyle.">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+  <meta charset="utf-8">
+
+  <!--Facebook preview-->
+  <meta property="og:image" content="resrc/celeba_church2.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="400">
+  <meta property="og:type" content="website"/>
+  <!-- <meta property="og:url" content="https://imagine.enpc.fr/~monniert/DTIClustering/"/> -->
+  <meta property="og:title" content="DiffStyle"/>
+  <meta property="og:description" content="Project page for DiffStyle."/>
+
+  <!--Twitter preview-->
+  <meta name="twitter:card" content="DiffStyle" />
+  <meta name="twitter:title" content="DiffStyle" />
+  <meta name="twitter:description" content="Project page for DiffStyle."/>
+  <meta name="twitter:image" content="resrc/celeba_church2.png">
+
+  <!--Style-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="style.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <script> MathJax = { tex: {inlineMath: [['$', '$'], ['\\(', '\\)']]} }; </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+
+<body>
+
+<div class="container" style="text-align:center; padding:2rem 15px">
+  <div class="row" style="text-align:center">
+    <h1>Training-free Style Transfer Emerges from h-space in Diffusion models</h1>
+  </div>
+  <div class="row" style="text-align:center">
+    <div class="col-xs-0 col-md-3"></div>
+    <div class="col-xs-12 col-md-6">
+      <h4>
+        <a href="https://drive.google.com/file/d/14uHCJLoR1AFydqV_neGjl1H2rjN4HBdv/view"><nobr><span class="equal-contrib"> Jaeseok Jeong ⋆</span> </nobr></a> &emsp;
+        <a href="https://drive.google.com/file/d/1d1TOCA20KmYnY8RvBvhFwku7QaaWIMZL/view?usp=share_link"><nobr><span class="equal-contrib">Mingi Kwon ⋆</span> </nobr></a> &emsp;
+        <a href="https://vilab.yonsei.ac.kr/member/professor"><nobr>Youngjung Uh</nobr></a>
+      </h4>
+      Yonsei University</nobr>, Korea</nobr>
+      <br>* denotes equal contribution
+
+    </div>
+    <div class="hidden-xs hidden-sm col-md-1" style="text-align:left; margin-left:0px; margin-right:0px">
+      <a style="color:inherit" target="_blank">
+        <i class="fa fa-file-pdf-o fa-4x"></i></a> 
+    </div>
+    <div class="hidden-xs hidden-sm col-md-2" style="text-align:left; margin-left:0px;">
+      <a href="https://github.com/curryjung/DiffStyle_official" style="color:inherit" target="_blank">
+        <i class="fa fa-github fa-4x"></i></a>
+    </div>
+  </div>
+</div>
+
+
+<div class="container" style="text-align:center; padding:1rem">
+  <!-- <img src="resrc/teaser.jpg" alt="teaser.jpg" class="text-center" style="width: 100%; max-width: 1100px"> -->
+  <h3 style="text-align:center; padding-top:1rem">
+    <!-- <a class="label label-info" href="https://arxiv.org/abs/2210.10960">Paper</a> -->
+    <a class="label label-info" >Paper (Comming soon)</a>
+    <!-- <a class="label label-info" >Code</a> -->
+    <a class="label label-info" href="https://github.com/curryjung/DiffStyle_official">Code</a>
+    <!-- <a class="label label-info" href="https://arxiv.org/abs/2006.11132">Paper (Comming soon)</a>
+    <a class="label label-info" href="https://github.com/monniert/dti-clustering">Code (Comming soon)</a> -->
+    <!-- <a class="label label-info" href="https://www.youtube.com/embed/j20MBc1hWGQ">Video (Comming soon)</a> -->
+    <!-- <a class="label label-info" href="resrc/dtic_long.pptx">Slides</a>
+    <a class="label label-info" href="resrc/ref.bib">BibTeX</a> -->
+  </h3>
+</div>
+
+
+<div class="container">
+  <h3>Teaser</h3>
+  <hr/>
+  <div class="row" style="text-align:center; padding-left:1rem; padding-right:1rem; padding-bottom:1rem;">
+  <h4>Note that we use <u>fixed pretrained diffusion models</u> without any fine-tuning or gradient guidance.</h4>
+  <img src="resrc/teaser.png" alt="firenze.jpg" class="text-center" style="width: 90%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+</div>  
+</div>
+
+<div class="container">
+  <h3>Abstract</h3>
+  <hr/>
+  <p>
+    Diffusion models (DMs) synthesize high-quality images in various domains.
+However, controlling their generative process is still hazy because the intermediate variables in the process are not rigorously studied.
+In this paper, we discover that DMs inherently have disentangled representations for content and style of the resulting images: the bottleneck feature of the U-Net contains the content and the skip connections convey the style. Furthermore, we introduce a principled way to inject content of one image to another considering progressive nature of the generative process. 
+Briefly, given an original generative process, 1) the source content should be gradually blended, 2) the blended content should be normalized to preserve the distribution, 3) manipulation of $x_t$ with style calibrationenables maintaining style during the injection. 
+Then, the resulting image has the source content with the style of the original image just like image-to-image translation. Interestingly, injecting contents to styles of unseen domains produces harmonization-like style transfer.
+To the best of our knowledge, our method introduces the first training-free feed-forward style transfer only with an unconditional pretrained frozen generative network. The code will be available online.
+  </p>
+</div>
+
+<div class="container">
+  <h3>DiffStyle</h3>
+  <hr/>
+  <h4><u>Generative process of DiffStyle</u></h4>
+  <div style="text-align : center;">
+    <img src="resrc/sampling_graphical_project.png" style="width: 65%"/>
+  </div>
+  <p>(a) <textbf>Overview of DiffStyle.</textbf> During the content injection, the bottle neck feature map is recursively injected during the sampling process started from the inverted $x_T$ of style images. The target content is reflected into the result image while preserving the original style elements. (b) <textbf>Illustration of spatial content injection methods</textbf> Mask m determines the area of feature map. Slerp of masked ht enables content injection into designated space.</p>
+</div>
+
+<div class="container">
+  <h3> Teaser Video</h3>
+  <h4>We increase content injectino ratio from 0 to 4 for the vidoes. Videos are available after loading completion. </h4>
+  <hr/>
+
+  <div class="container">
+    <div class="container" style="display:flex; justify-content:center; align-items: flex-start; ">
+      <img src="resrc/explainary.png" style="width:15%">
+      <img src="resrc/afhq/46.png" style="width:15%">
+      <img src="resrc/afhq/81.png" style="width:15%">
+      <img src="resrc/afhq/85.png" style="width:15%">
+    </div>
+    <div class="container" style="display:flex; justify-content:center; align-items: flex-start; ">
+      <img src="resrc/afhq/48.png" style="width:15%">
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content48_style46.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content48_style81.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content48_style85.mp4" type="video/mp4"></video>
+    </div>
+    <div class="container" style="display:flex; justify-content:center; align-items: flex-start; padding-bottom:1rem">
+      <img src="resrc/afhq/55.png" style="width:15%">
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content55_style46.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content55_style81_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/afhq_content55_style85_.mp4" type="video/mp4"></video>
+    </div>
+  </div>
+
+
+    <div class="container">
+      <div class="container" style="display:flex; justify-content:center; align-items: flex-start;">
+        <img src="resrc/explainary.png" style="width:15%">
+        <img src="resrc/celeba/40_0_orig.png" style="width:15%">
+        <img src="resrc/celeba/70_0_orig.png" style="width:15%">
+        <img src="resrc/celeba/751_0_orig.png" style="width:15%">
+      </div>
+      <div class="container" style="display:flex; justify-content:center; align-items: flex-start; ">
+        <img src="resrc/celeba/14_0_orig.png" style="width:15%">
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content14_style40_.mp4" type="video/mp4"></video>
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content14_style70_.mp4" type="video/mp4"></video>
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content14_style751_.mp4" type="video/mp4"></video>
+      </div>
+      <div class="container" style="display:flex; justify-content:center; align-items: flex-start;padding-bottom:1rem">
+        <img src="resrc/celeba/43_0_orig.png" style="width:15%">
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content43_style40_.mp4" type="video/mp4"></video>
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content43_style70_.mp4" type="video/mp4"></video>
+        <video muted loop playsinline class="video" width="15%" height="15%" src="resrc/mp4s/celeba_mask_content43_style751_.mp4" type="video/mp4"></video>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="container" style="display:flex; justify-content:center; align-items: flex-start;">
+        <img src="resrc/explainary.png" style="width:10%">
+        <img src="resrc/style_literature/0.png" style="width:10%">
+        <img src="resrc/style_literature/1.jpg" style="width:10%">
+        <img src="resrc/style_literature/3.jpg" style="width:10%">
+        <img src="resrc/style_literature/5.jpg" style="width:10%">
+        <img src="resrc/style_literature/6.png" style="width:10%">
+        <img src="resrc/style_literature/7.jpg" style="width:10%">
+        <img src="resrc/style_literature/8.jpg" style="width:10%">
+        <img src="resrc/style_literature/9.png" style="width:10%">
+    </div>
+
+    <div class="container" style="display:flex; justify-content:center; align-items: flex-start; ">
+      <img src="resrc/celeba/347_0_orig.png" style="width:10%">
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style0_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style1_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style3_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style5_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style6_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style7_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style8_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content347_style9_.mp4" type="video/mp4"></video>
+    </div>
+
+    <div class="container" style="display:flex; justify-content:center; align-items: flex-start; ">
+      <img src="resrc/celeba/387_0_orig.png" style="width:10%">
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style0_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style1_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style3_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style5_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style6_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style7_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style8_.mp4" type="video/mp4"></video>
+      <video muted loop playsinline class="video" width="10%" height="10%" src="resrc/mp4s/style_literature_content387_style9_.mp4" type="video/mp4"></video>
+    </div>
+</div>
+
+
+
+<div class="container">
+  <h3>Results</h3>
+  <hr/>
+  <div class="row" style="text-align:center; padding-left:1rem; padding-right:1rem; padding-bottom:1rem;">
+    <h4>Note that we use <u>fixed pretrained diffusion models</u> without any fine-tuning or gradient guidance.</h4>
+    <img src="resrc/test_mixing.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+    <h5>CelebA-HQ, LSUN-Church, AFHQ-dog, METFACES, LSUN-bedroom</h5>    
+    <img src="resrc/test_celeba.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+    <h5>Local editing and Style transfer</h5>  
+
+  </div>
+</div>
+
+<script>
+  window.addEventListener('load', function(){
+    var videos = document.getElementsByClassName("video");
+    for (var i = 0; i < videos.length; i++) {
+      videos[i].playbackRate = 0.6;
+      videos[i].play();
+    }
+  });
+
+</script>
+
+<script>
+  function zoomIn(event) {
+    event.target.style.width = "20%";
+    event.target.style.height = "20%";
+    event.target.style.transition = "all 0.5s";
+    // event.target.parentNode.children("img").style = "width: 90%; max-width: 1100px; display: block;";
+    var child = event.target.parentNode.childNodes;
+    for (var i = 0; i < child.length; i++) {
+      if (child[i].nodeName == "IMG") {
+        child[i].style.display = "block";
+        child[i].style.width = "100%";
+        child[i].style.maxWidth = "1100px";
+        child[i].style.margin = "auto";
+      }
+      if (child[i].nodeName == "DIV") {
+        child[i].style.display = "block";
+        child[i].style.margin = "auto";
+      }
+    }
+  }
+  
+
+  function zoomOut(event) {
+    event.target.style.width = "15%";
+    event.target.style.height = "15%";
+    event.target.style.transition = "all 0.5s";
+    var child = event.target.parentNode.childNodes;
+    for (var i = 0; i < child.length; i++) {
+      if (child[i].nodeName == "IMG") {
+        child[i].style.display = "none";
+      }
+      if (child[i].nodeName == "DIV") {
+        child[i].style.display = "none";
+      }
+    }
+  }
+
+  function zoomIn2(event) {
+    event.target.style.width = "25%";
+    event.target.style.height = "25%";
+    event.target.style.transition = "all 0.5s";
+    // event.target.parentNode.children("img").style = "width: 90%; max-width: 1100px; display: block;";
+    var child = event.target.parentNode.childNodes;
+    for (var i = 0; i < child.length; i++) {
+      if (child[i].nodeName == "IMG") {
+        child[i].style.display = "block";
+        child[i].style.width = "70%";
+        child[i].style.maxWidth = "1100px";
+        child[i].style.margin = "auto";
+
+      }
+      if (child[i].nodeName == "DIV") {
+        child[i].style.display = "block";
+        child[i].style.margin = "auto";
+      }
+    }
+  }
+
+
+  function zoomOut2(event) {
+    event.target.style.width = "20%";
+    event.target.style.height = "20%";
+    event.target.style.transition = "all 0.5s";
+    var child = event.target.parentNode.childNodes;
+    for (var i = 0; i < child.length; i++) {
+      if (child[i].nodeName == "IMG") {
+        child[i].style.display = "none";
+      }
+      if (child[i].nodeName == "DIV") {
+        child[i].style.display = "none";
+      }
+    }
+  }
+
+</script>
+
+<div class="container">
+  <h3>More Results</h3>
+  <hr/>
+  <div class="row" style="text-align:center; padding-left:1rem; padding-right:1rem; padding-bottom:1rem;">
+      <img src="resrc/supple_afhq.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>AFHQ-dog.</h5>
+      <img src="resrc/supple_bedroom.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>LSUN-Bedroom.</h5>
+      <img src="resrc/supple_church.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>LSUN-Church</h5>
+      <img src="resrc/supple_celeba_mask.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>Local editing on CelebA-HQ </h5>
+      <img src="resrc/supple_celeba.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>CelebA-HQ</h5>
+      <img src="resrc/supple_metface.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>METFACES</h5>
+      <img src="resrc/supple_style_transfer.png" alt="firenze.jpg" class="text-center" style="width: 80%; max-width: 1100px" image-rendering: -webkit-optimize-contrast;>
+      <h5>Style transfer with artistic references</h5>
+  </div>
+  
+</div>
+
+<!-- <div class="container">
+  <h3>Resources</h3>
+  <hr/>
+  <div class="row" style="text-align: center">
+    <div class="col-xs-0 col-lg-0"></div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>Paper</h4>
+      <a href="https://arxiv.org/abs/2006.11132" style="color:inherit">
+        <img src="resrc/paper.jpg" alt="paper.jpg" class="text-center" style="max-width:70%; border:0.15em solid;
+        border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>Code</h4>
+      <a href="https://github.com/monniert/dti-clustering" style="color:inherit;">
+        <img src="resrc/github_repo.png" alt="github_repo.png" class="text-center"
+             style="max-width:70%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-4 col-lg-4">
+      <h4>Slides</h4>
+      <a href="dtic_long.pptx" style="color:inherit;">
+        <img src="resrc/slides.png" alt="slides.png" class="text-center"
+             style="max-width:70%; border:0.15em solid;border-radius:0.5em;"></a>
+    </div>
+    <div class="col-xs-0 col-lg-0"></div>
+  </div>
+</div> -->
+
+<!-- <div class="container">
+    <h4 style="padding-top:0.5em">BibTeX</h4>
+    If you find this work useful for your research, please cite:
+    <div class="card">
+      <div class="card-block">
+        <pre class="card-text clickselect">
+@inproceedings{monnier2020dticlustering,
+  title={{Deep Transformation-Invariant Clustering}},
+  author={Monnier, Tom and Groueix, Thibault and Aubry, Mathieu},
+  booktitle={NeurIPS},
+  year={2020},
+}</pre>
+      </div>
+    </div> -->
+
+  <!-- <h3>Further information</h3>
+  <hr/>
+  If you like this project, please check out other related works from our group:
+  <h4>Follow-ups</h4>
+  <ul>
+    <li>
+      <a href="https://arxiv.org/abs/2104.14575">Monnier et al. - Unsupervised Layered Image Decomposition into Object
+        Prototypes (arXiv 2021)</a>
+    </li>
+  </ul> -->
+
+  <!-- <h4>Previous works on deep transformations</h4>
+  <ul>
+    <li>
+      <a href="https://arxiv.org/abs/1908.04725">Deprelle et al. - Learning elementary structures for 3D shape
+        generation and matching (NeurIPS 2019)</a>
+    </li>
+    <li>
+      <a href="https://arxiv.org/abs/1806.05228">Groueix et al. - 3D-CODED: 3D Correspondences by Deep Deformation (ECCV
+        2018)</a>
+    </li>
+    <li>
+      <a href="https://arxiv.org/abs/1802.05384">Groueix et al. - AtlasNet: A Papier-Mache Approach to Learning 3D
+        Surface Generation (CVPR 2018)</a>
+    </li>
+  </ul> -->
+
+  <!-- <div class="container">
+  <h3>Acknowledgements</h3>
+  <hr/>
+  <p>
+    This work was supported in part by <a href="https://enherit.enpc.fr/">ANR project EnHerit</a> ANR-17-CE23-0008,
+    project Rapid Tabasco, gifts  from  Adobe and HPC resources from GENCI-IDRIS (Grant 2020-AD011011697). We thank 
+    Bryan Russell, Vladimir Kim, Matthew Fisher, Fran&#231;ois Darmon, Simon Roburin, David Picard, Michael 
+    Ramamonjisoa, Vincent Lepetit, Elliot Vincent, Jean Ponce, William Peebles and Alexei Efros for inspiring 
+    discussions and valuable feedback.
+  </p>
+</div> -->
+</div>
+
+<div class="container" style="padding-top:3rem; padding-bottom:3rem">
+  <p style="text-align:center">
+  &#169; This webpage was in part inspired from this
+  <a href="https://github.com/monniert/project-webpage">template</a>.
+  </p>
+</div>
+
+</body>
+</html> 
