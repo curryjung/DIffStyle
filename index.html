@@ -53,7 +53,7 @@
 
     </div>
     <div class="hidden-xs hidden-sm col-md-1" style="text-align:left; margin-left:0px; margin-right:0px">
-      <a style="color:inherit" target="_blank">
+      <a href = "https://arxiv.org/abs/2303.15403" style="color:inherit" target="_blank">
         <i class="fa fa-file-pdf-o fa-4x"></i></a> 
     </div>
     <div class="hidden-xs hidden-sm col-md-2" style="text-align:left; margin-left:0px;">
@@ -67,8 +67,8 @@
 <div class="container" style="text-align:center; padding:1rem">
   <!-- <img src="resrc/teaser.jpg" alt="teaser.jpg" class="text-center" style="width: 100%; max-width: 1100px"> -->
   <h3 style="text-align:center; padding-top:1rem">
-    <!-- <a class="label label-info" href="https://arxiv.org/abs/2210.10960">Paper</a> -->
-    <a class="label label-info" >Paper (Comming soon)</a>
+    <a class="label label-info" href="https://arxiv.org/abs/2303.15403">Paper</a>
+    <!-- <a class="label label-info" >Paper</a> -->
     <!-- <a class="label label-info" >Code</a> -->
     <a class="label label-info" href="https://github.com/curryjung/DiffStyle_official">Code</a>
     <!-- <a class="label label-info" href="https://arxiv.org/abs/2006.11132">Paper (Comming soon)</a>
@@ -93,12 +93,18 @@
   <h3>Abstract</h3>
   <hr/>
   <p>
-    Diffusion models (DMs) synthesize high-quality images in various domains.
-However, controlling their generative process is still hazy because the intermediate variables in the process are not rigorously studied.
-In this paper, we discover that DMs inherently have disentangled representations for content and style of the resulting images: the bottleneck feature of the U-Net contains the content and the skip connections convey the style. Furthermore, we introduce a principled way to inject content of one image to another considering progressive nature of the generative process. 
-Briefly, given an original generative process, 1) the source content should be gradually blended, 2) the blended content should be normalized to preserve the distribution, 3) manipulation of $x_t$ with style calibrationenables maintaining style during the injection. 
-Then, the resulting image has the source content with the style of the original image just like image-to-image translation. Interestingly, injecting contents to styles of unseen domains produces harmonization-like style transfer.
-To the best of our knowledge, our method introduces the first training-free feed-forward style transfer only with an unconditional pretrained frozen generative network. The code will be available online.
+    Diffusion models (DMs) synthesize high-quality images in various domains. However, controlling their generative process is still hazy because the intermediate variables in the process are not rigorously studied. 
+    Recently, StyleCLIP-like editing of DMs is found in the bottleneck of the U-Net, named $h$-space. 
+    In this paper, we discover that DMs inherently have disentangled representations for content and style of
+    the resulting images: $h$-space contains the content and the skip connections convey the style. 
+    Furthermore, we introduce a principled way to inject content of one image to another considering progressive nature of the generative process. 
+    Briefly, given the original generative process, 1) the feature of the source content should be gradually blended, 
+    2) the blended feature should be normalized to preserve the distribution, 
+    3) the change of skip connections due to content injection should be calibrated. 
+    Then, the resulting image has the source content with the style of the original image just like image-to-image translation. 
+    Interestingly, injecting contents to styles of unseen domains produces harmonization-like style transfer. 
+    To the best of our knowledge, our method introduces the first training-free feed-forward style transfer only with 
+    an unconditional pretrained frozen generative network. The code is available at <a href="https://github.com/curryjung/DiffStyle_official"> this link</a>.
   </p>
 </div>
 
@@ -125,7 +131,7 @@ To the best of our knowledge, our method introduces the first training-free feed
 
 <div class="container">
   <h3> Teaser Video</h3>
-  <h4>We increase content injection ratio from 0 to 4 for the vidoes. Videos are available after loading completion. </h4>
+  <h4>We increase content injection ratio from 0 to 0.3 for the vidoes. Videos are available after loading completion. </h4>
   <hr/>
 
   <div class="container">
