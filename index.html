@@ -1,8 +1,8 @@
  <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>DiffStyle</title>
-  <meta name="description" content="Project page for DiffStyle.">
+  <title>InjectFusion</title>
+  <meta name="description" content="Project page for InjectFusion.">
   <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
   <meta charset="utf-8">
 
@@ -13,13 +13,13 @@
   <meta property="og:image:height" content="400">
   <meta property="og:type" content="website"/>
   <!-- <meta property="og:url" content="https://imagine.enpc.fr/~monniert/DTIClustering/"/> -->
-  <meta property="og:title" content="DiffStyle"/>
-  <meta property="og:description" content="Project page for DiffStyle."/>
+  <meta property="og:title" content="InjectFusion"/>
+  <meta property="og:description" content="Project page for InjectFusion."/>
 
   <!--Twitter preview-->
-  <meta name="twitter:card" content="DiffStyle" />
-  <meta name="twitter:title" content="DiffStyle" />
-  <meta name="twitter:description" content="Project page for DiffStyle."/>
+  <meta name="twitter:card" content="InjectFusion" />
+  <meta name="twitter:title" content="InjectFusion" />
+  <meta name="twitter:description" content="Project page for InjectFusion."/>
   <meta name="twitter:image" content="resrc/celeba_church2.png">
 
   <!--Style-->
@@ -38,7 +38,7 @@
 
 <div class="container" style="text-align:center; padding:2rem 15px">
   <div class="row" style="text-align:center">
-    <h1>Training-free Style Transfer Emerges from h-space in Diffusion models</h1>
+    <h1>Training-free Content Injection using h-space in Diffusion models</h1>
   </div>
   <div class="row" style="text-align:center">
     <div class="col-xs-0 col-md-3"></div>
@@ -57,7 +57,7 @@
         <i class="fa fa-file-pdf-o fa-4x"></i></a> 
     </div>
     <div class="hidden-xs hidden-sm col-md-2" style="text-align:left; margin-left:0px;">
-      <a href="https://github.com/curryjung/DiffStyle_official" style="color:inherit" target="_blank">
+      <a href="https://github.com/curryjung/InjectFusion_official" style="color:inherit" target="_blank">
         <i class="fa fa-github fa-4x"></i></a>
     </div>
   </div>
@@ -70,7 +70,7 @@
     <a class="label label-info" href="https://arxiv.org/abs/2303.15403">Paper</a>
     <!-- <a class="label label-info" >Paper</a> -->
     <!-- <a class="label label-info" >Code</a> -->
-    <a class="label label-info" href="https://github.com/curryjung/DiffStyle_official">Code</a>
+    <a class="label label-info" href="https://github.com/curryjung/InjectFusion_official">Code</a>
     <!-- <a class="label label-info" href="https://arxiv.org/abs/2006.11132">Paper (Comming soon)</a>
     <a class="label label-info" href="https://github.com/monniert/dti-clustering">Code (Comming soon)</a> -->
     <!-- <a class="label label-info" href="https://www.youtube.com/embed/j20MBc1hWGQ">Video (Comming soon)</a> -->
@@ -104,18 +104,18 @@
     Then, the resulting image has the source content with the style of the original image just like image-to-image translation. 
     Interestingly, injecting contents to styles of unseen domains produces harmonization-like style transfer. 
     To the best of our knowledge, our method introduces the first training-free feed-forward style transfer only with 
-    an unconditional pretrained frozen generative network. The code is available at <a href="https://github.com/curryjung/DiffStyle_official"> this link</a>.
+    an unconditional pretrained frozen generative network. The code is available at <a href="https://github.com/curryjung/InjectFusion_official"> this link</a>.
   </p>
 </div>
 
 <div class="container">
-  <h3>DiffStyle</h3>
+  <h3>InjectFusion</h3>
   <hr/>
-  <h4><u>Generative process of DiffStyle</u></h4>
+  <h4><u>Generative process of InjectFusion</u></h4>
   <div style="text-align : center;">
     <img src="resrc/sampling_graphical_project.png" style="width: 75%"/>
   </div>
-  <p>(a) <b>Overview of DiffStyle.</b> During the content injection, the bottle neck feature map is recursively injected during the sampling process started from the inverted $ x_T $ of style images. The target content is reflected into the result image while preserving the original style elements. (b) <textbf>Illustration of spatial content injection methods</textbf> Mask m determines the area of feature map. Slerp of masked ht enables content injection into designated space.</p>
+  <p>(a) <b>Overview of InjectFusion.</b> During the content injection, the bottle neck feature map is recursively injected during the sampling process started from the inverted $ x_T $ of style images. The target content is reflected into the result image while preserving the original style elements. (b) <textbf>Illustration of spatial content injection methods</textbf> Mask m determines the area of feature map. Slerp of masked ht enables content injection into designated space.</p>
 <br>
 
   <div style="text-align : center;">
